@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="506.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.programa.HelloController">
+   <children>
+      <AnchorPane fx:id="datosAnchorPane" layoutX="1.0" layoutY="74.0" prefHeight="432.0" prefWidth="504.0" style="-fx-background-color: #d1ded7;">
+
+         <children>
+            <TextField fx:id="nombreTextField" layoutX="276.0" layoutY="115.0" />
+            <TextField fx:id="apellidoTextField" layoutX="278.0" layoutY="41.0" />
+
+            <Label layoutX="73.0" layoutY="45.0" text="Nombre" textAlignment="JUSTIFY">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label disable="true" layoutX="73.0" layoutY="124.0" text="Identificacion">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <JFXComboBox fx:id="identidad_GeneroComboBox" layoutX="370.0" layoutY="164.0" promptText="ID" />
+            <Label disable="true" layoutX="28.0" layoutY="236.0" text="Identificacion">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <JFXRadioButton fx:id="masculinoRadioButton" layoutX="28.0" layoutY="265.0" text="Masculino" />
+            <JFXRadioButton fx:id="femeninoRadioButton" layoutX="29.0" layoutY="291.0" text="Femenino" />
+
+
+            <JFXButton fx:id="limpiarButton" layoutX="378.0" layoutY="279.0" onAction="#limpiarCampos" text="Limpiar" />
+            <JFXButton layoutX="372.0" layoutY="245.0" text="Guardar" />
+
+
+
+
+
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="59.0" prefWidth="517.0" style="-fx-background-color: #5c4136;" AnchorPane.bottomAnchor="431.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Separator prefWidth="200.0" visible="false" />
+                  <JFXButton buttonType="RAISED" onAction="#irAInicio" prefHeight="39.0" prefWidth="244.0" text="INICIO ">
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </HBox.margin>
+                     <textFill>
+                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.9725490212440491" green="0.9647058844566345" blue="0.9647058844566345" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.6973684430122375" green="0.555311918258667" blue="0.555311918258667" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </RadialGradient>
+                     </textFill>
+                  </JFXButton>
+                  <Separator prefWidth="200.0" visible="false" />
+                  <JFXButton onAction="#irAFormulario" prefHeight="40.0" prefWidth="228.0" text="FORMULARIO ">
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </HBox.margin>
+                     <textFill>
+                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.9725490212440491" green="0.9647058844566345" blue="0.9647058844566345" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.6973684430122375" green="0.555311918258667" blue="0.555311918258667" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </RadialGradient>
+                     </textFill>
+                  </JFXButton>
+                  <Separator prefWidth="200.0" visible="false" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="blancoAnchorPane" prefHeight="432.0" prefWidth="504.0" style="-fx-background-color: #d1ded7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+       <AnchorPane  fx:id="panelInicio" prefHeight="506.0" prefWidth="506.0" style="-fx-background-color: #d1ded7;">
+           <children>
+               <ProgressBar fx:id="progressBar" layoutX="84.0" layoutY="437.0" prefHeight="30.0" prefWidth="339.0" progress="0.0" />
+               <Label fx:id="porcentajeLabel" layoutX="194.0" layoutY="353.0" prefHeight="65.0" prefWidth="119.0" text="PORCENTAJE" />
+               <JFXButton layoutX="161.0" layoutY="263.0" prefHeight="40.0" prefWidth="210.0" ripplerFill="#76a371" style="-fx-background-color: transparent;" text="Clic para iniciar la aplicación" textAlignment="CENTER" textFill="#3200fc" onAction="#iniciarAplicacion">
+                   <font>
+                       <Font size="22.0" />
+                   </font>
+               </JFXButton>
+           </children>
+       </AnchorPane>
+
+   </children>
+</AnchorPane>
