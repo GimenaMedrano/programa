@@ -1,31 +1,27 @@
 package com.example.programa;
 
+
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
+import java.time.Instant;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.ProgressBar;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 
-import com.jfoenix.controls.JFXButton;
+
+
 import javafx.scene.layout.AnchorPane;
-
-import java.io.IOException;
+import javafx.util.Duration;
 
 
 public class HelloController  {
@@ -48,34 +44,52 @@ public class HelloController  {
 
     @FXML
     private AnchorPane blancoAnchorPane;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private Label SALUDO;
+    @FXML
+    private CheckBox espanolCheckBox;
 
+    @FXML
+    private CheckBox inglesCheckBox;
     @FXML
     private ProgressBar progressBar;
     @FXML
     private Label porcentajeLabel;
+    @FXML
     private double progreso = 0.0;
-
-    private Timeline timeline;
-
-
-
-
     @FXML
     private void initialize() {
-        datosAnchorPane.setVisible(false);
-        blancoAnchorPane.setVisible(false);
-        // Crear el ToggleGroup y asignarlo a los JFXRadioButton
+
         generoToggleGroup = new ToggleGroup();
         femeninoRadioButton.setToggleGroup(generoToggleGroup);
         masculinoRadioButton.setToggleGroup(generoToggleGroup);
         // Agregar las opciones al ComboBox
         ObservableList<String> opciones = FXCollections.observableArrayList("DPI", "NIT", "Pasaporte");
         identidad_GeneroComboBox.setItems(opciones);
+
+        Instant LocalDate = null;
+        datePicker.setValue(java.time.LocalDate.from(java.time.LocalDate.now()));
+
+        // Mostrar la fecha y hora actual en el Label
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String formattedDateTime = now.format(formatter);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), SALUDO);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.setCycleCount(Timeline.INDEFINITE); // Repetir la animación indefinidamente
+        fadeTransition.setAutoReverse(true); // Invertir la animación al final para que el texto vuelva a aparecer
+
+        // Iniciar la animación
+        fadeTransition.play();
         progressBar.setProgress(0.0);
         porcentajeLabel.setText("PORCENTAJE: 0%");
 
-    }
 
+
+    }
     @FXML
     private void iniciarAplicacion() {
         // Reiniciar el progreso
@@ -84,6 +98,7 @@ public class HelloController  {
         porcentajeLabel.setText("PORCENTAJE: 0%");
 
         // Detener cualquier animación en curso
+        Timeline timeline = null;
         if (timeline != null) {
             timeline.stop();
         }
@@ -133,6 +148,43 @@ public class HelloController  {
     }
 
 
+
+    @FXML
+
+    private void guardarInformacion() {
+        String nombre = nombreTextField.getText();
+        String apellido = apellidoTextField.getText();
+        String genero = generoToggleGroup.getSelectedToggle() != null
+                ? ((JFXRadioButton) generoToggleGroup.getSelectedToggle()).getText()
+                : "No especificado";
+        String tipoIdentidad = identidad_GeneroComboBox.getValue() != null
+                ? identidad_GeneroComboBox.getValue()
+                : "No especificado";
+        String idiomas = "";
+        if (espanolCheckBox.isSelected()) {
+            idiomas += "Español ";
+        }
+        if (inglesCheckBox.isSelected()) {
+            idiomas += "Inglés ";
+        }
+
+        // Crear el contenido del cuadro de diálogo con la información ingresada
+        String s = "\n"
+                + "Idiomas: " + idiomas;
+        String mensaje = "Nombre: " + nombre + "\n"
+                + "Apellido: " + apellido + "\n"
+                + "Género: " + genero + "\n"
+                + "Tipo de Identificacion: " + tipoIdentidad +"\n"
+                + "Idiomas: " + idiomas;
+
+        // Mostrar el cuadro de diálogo con la información
+        Alert informacionDialog = new Alert(Alert.AlertType.INFORMATION);
+        informacionDialog.setTitle("Información Guardada");
+        informacionDialog.setHeaderText(null);
+        informacionDialog.setContentText(mensaje);
+        informacionDialog.showAndWait();
+    }
+
     @FXML
     private void limpiarCampos() {
         // Mostrar un cuadro de diálogo de confirmación
@@ -152,8 +204,10 @@ public class HelloController  {
 
             // Desseleccionar ambos radio buttons
             generoToggleGroup.selectToggle(null);
-            // Actualizar el progreso a 0
 
+            // Desmarcar los checkboxes
+            espanolCheckBox.setSelected(false);
+            inglesCheckBox.setSelected(false);
         }
     }
 
@@ -175,4 +229,6 @@ public class HelloController  {
 
         blancoAnchorPane.setVisible(false);
     }
+
+
 }
